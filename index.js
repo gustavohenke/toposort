@@ -102,4 +102,4 @@ function Toposort() {
 
 }
 
-module.exports = Toposort;
+module.exports = exports.Toposort = Toposort;

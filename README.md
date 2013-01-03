@@ -66,5 +66,20 @@ Output:
 */
 ```
 
+## API
+First of all:
+```javascript
+var Toposort = require('toposort-class'),
+	t = new Toposort();
+```
+
+### .add(item, deps)
+* _{String}_ `item` - The name of the dependent item that is being added
+* _{Array|String}_ `deps` - A dependency or list of dependencies of `item`
+__Returns:__ The Toposort instance.
+
+### .sort()
+__Returns:__ The list of dependencies topologically sorted.
+
 ## Legal
 MIT License
