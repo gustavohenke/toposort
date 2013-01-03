@@ -1,8 +1,4 @@
 # Sorting directed acyclic graphs
-[![Build Status](https://travis-ci.org/marcelklehr/node-toposort.png)](https://travis-ci.org/marcelklehr/node-toposort)
-
-## Installation
-`npm install toposort`
 
 ## Example
 Let's say, you have a list of pluginsor tasks, which depend on each other (`depends` defines plugins or tasks that should be executed before the plugin that declares the directive):
@@ -77,9 +73,6 @@ Output:
  * edges {Array} An array of directed vertices like `[node1, node2]` (where `node1` depends on `node2`)
 
 Returns: {Array} a list of nodes, sorted by their dependency (following edge direction as descendancy)
-
-## Tests
-Run the tests with `node test.js`.
 
 ## Legal
 MIT License

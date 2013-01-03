@@ -1,30 +1,24 @@
 {
-  "name": "toposort",
-  "version": "0.2.2",
-  "description": "Topological sort of directed ascyclic graphs (like dependecy lists)",
-  "main": "index.js",
-  "scripts": {
-    "test": "node test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/marcelklehr/node-toposort.git"
-  },
-  "devDependencies": {
-    "vows": "*"
-  },
-  "keywords": [
-    "topological",
-    "sort",
-    "sorting",
-    "graphs",
-    "graph",
-    "dependency",
-    "list",
-    "dependencies",
-    "acyclic"
-  ],
-  "author": "Marcel Klehr <mklehr@gmx.net>",
-  "license": "MIT",
-  "readmeFilename": "README.md"
+	"name":             "toposort-class",
+	"version":          "0.1.0",
+	"description":      "Topological sort of directed acyclic graphs (like dependecy lists)",
+	"main":             "index.js",
+	"repository": {
+		"type": "git",
+		"url":  "https://github.com/gustavohenke/node-toposort.git"
+	},
+	"keywords": [
+		"topological",
+		"sort",
+		"sorting",
+		"graphs",
+		"graph",
+		"dependency",
+		"list",
+		"dependencies",
+		"acyclic"
+	],
+	"author":           ["Marcel Klehr <mklehr@gmx.net>", "Gustavo Henke <gustavo@injoin.com.br>"],
+	"license":          "MIT",
+	"readmeFilename":   "README.md"
 }

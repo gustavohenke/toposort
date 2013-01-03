@@ -1,73 +1,104 @@
-/*!
- * Toposort - Topological sorting for node.js
- * Copyright (c) 2012 by Marcel Klehr <mklehr@gmx.net>
- *
- * MIT LICENSE
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-module.exports = toposort;
-
 /**
- * Topological sorting function
- * @param edges {Array} An array of edges like [node1, node2]
- * @returns {Array} a list of nodes, sorted by their dependency (following edge direction as descendancy)
+ * Topological sort class.
+ * Original by Marcel Klehr, contributed by Gustavo Henke.
+ *
+ * @class
+ * @since   0.1.0
+ * @see     https://github.com/marcelklehr/node-toposort
+ * @author  Marcel Klehr <mklehr@gmx.net>
+ *
+ * @see     https://github.com/gustavohenke/node-toposort
+ * @author  Gustavo Henke <gustavo@injoin.com.br>
  */
-function toposort(edges) {
-   var nodes = [] // a list of id=>node
-     , sorted = [] // sorted list of ids
+function Toposort() {
+	"use strict";
+	var self = this,
+		edges = [];
 
-  // list all nodes by id
-  edges.forEach(function(edge) {
-    edge.forEach(function insertNode (n) {
-      if(nodes.indexOf(n) > 0) return;
-      nodes.push(n)
-    })
-  })
+	/**
+	 * Adds dependency edges.
+	 * 
+	 * @since   0.1.0
+	 * @param   {String} item               An dependent name. Must be an string and not empty
+	 * @param   {String[]|String} [deps]    An dependency or array of dependencies 
+	 * @returns {Toposort}                  The Toposort instance
+	 */
+	this.add = function(item, deps) {
+		if (typeof item !== "string" || !item) {
+			throw new TypeError("Dependent name must be given as a not empty string");
+		}
 
-  for (var i=0; i < nodes.length; i++) {
-    (function visit(node, predecessors) {
-      if (!predecessors) predecessors = []
-      else // The node is a dependency of itself?! I'd say, we're free to throw
-      if(predecessors.indexOf(node) > 0)
-        throw new Error('Cyclic dependency! The following node is a dependency of itself: '+JSON.stringify(node))
-      
-      // if it's not in nodes[] anymore, we've already had this node
-      if (nodes.indexOf(node) < 0) return;
-      
-      // remove this node from nodes[]
-      nodes.splice(nodes.indexOf(node), 1)
-      if (predecessors.length == 0) i--;
-      
-      predsCopy = predecessors.map(function(n) {return n})
-      predsCopy.push(node)
-      
-      edges
-        .filter(function(e) { return e[0] === node })
-        .forEach(function(e) {
-          // visit all dependencies of this node
-          // and provide them with a *copy* of their predecessors
-          visit(e[1], predsCopy)
-        })
-      sorted.unshift(node)
-    })(nodes[i])
-  }
-  return sorted;
+		if (deps) {
+			deps = Array.isArray(deps) ? deps : [deps];
+			deps.forEach(function(dep) {
+				if (typeof dep !== "string" || !dep) {
+					throw new TypeError("Dependency name must be given as a not empty string");
+				}
+
+				edges.push([item, dep]);
+			});
+		} else {
+			edges.push([item]);
+		}
+
+		return self;
+	};
+
+	/**
+	 * Runs the toposorting and return an ordered array of strings
+	 * 
+	 * @since   0.1.0
+	 * @returns {String[]}  The list of items topologically sorted.
+	 */
+	this.sort = function() {
+		var nodes = [],
+			sorted = [];
+
+		edges.forEach(function(edge) {
+			edge.forEach(function(n) {
+				if (nodes.indexOf(n) === -1) {
+					nodes.push(n);
+				}
+			});
+		});
+
+		function visit(node, predecessors, i) {
+			if (!predecessors) {
+				predecessors = [];
+			} else if (predecessors.indexOf(node) > 0) {
+				throw new Error(require('util').format("Cyclic dependency found. '%s' is dependent of itself.", node));
+			}
+
+			var index = nodes.indexOf(node);
+			if (index === -1) {
+				return i;
+			}
+
+			nodes.splice(index, 1);
+			if (predecessors.length === 0) {
+				i--;
+			}
+
+			var predsCopy = predecessors.slice(0);
+			predsCopy.push(node);
+
+			edges.filter(function(e) {
+				return e[0] === node;
+			}).forEach(function(e) {
+				visit(e[1], predsCopy, i);
+			});
+
+			sorted.unshift(node);
+			return i;
+		}
+
+		for (var i = 0; i < nodes.length; i++) {
+			i = visit(nodes[i], null, i);
+		}
+
+		return sorted;
+	};
+
 }
+
+module.exports = Toposort;
