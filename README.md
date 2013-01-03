@@ -76,6 +76,7 @@ var Toposort = require('toposort-class'),
 ### .add(item, deps)
 * _{String}_ `item` - The name of the dependent item that is being added
 * _{Array|String}_ `deps` - A dependency or list of dependencies of `item`
+
 __Returns:__ The Toposort instance.
 
 ### .sort()
