@@ -29,14 +29,15 @@ function Toposort() {
 		}
 
 		if (deps) {
-			deps = Array.isArray(deps) ? deps : [deps];
-			deps.forEach(function(dep) {
+			var tmp = Array.isArray(deps) ? deps : [deps];
+			tmp.forEach(function(dep) {
 				if (typeof dep !== "string" || !dep) {
 					throw new TypeError("Dependency name must be given as a not empty string");
 				}
-
-				edges.push([item, dep]);
 			});
+			
+			tmp.unshift(item);
+			edges.push(tmp);
 		} else {
 			edges.push([item]);
 		}
