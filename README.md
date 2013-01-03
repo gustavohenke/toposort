@@ -57,7 +57,7 @@ toposort.add("john", "bar");
 toposort.add("tom", "john");
 
 // now, we reverse the results to get the resulting execution flow, as above
-var results = toposort.sort();
+var results = toposort.sort().reverse();
 
 console.log(results)
 /*
