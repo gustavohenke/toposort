@@ -1,4 +1,5 @@
 # Sorting directed acyclic graphs
+_This was originally done by Marcel Klehr. [Why not checkout his original repo?](https://github.com/marcelklehr/node-toposort)_
 
 ## Installation
 `npm install toposort-class`
