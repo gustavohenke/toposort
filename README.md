@@ -14,6 +14,7 @@ Let's say you have the following dependency graph:
 * jQuery and Underscore don't depend on anyone.
 
 Now, how would you sort this in a way that each asset will be correctly placed? You'll probably need the following sorting:
+
 * `jQuery`, `jQuery UI Core`, `jQuery UI Widget`, `jQuery UI Button`, `Underscore`, `Backbone`, `Plugin`
 
 You can achieve it with the following code, using `toposort-class`:
