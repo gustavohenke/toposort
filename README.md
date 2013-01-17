@@ -7,6 +7,7 @@ _This was originally done by Marcel Klehr. [Why not checkout his original repo?]
 
 ## Example
 Let's say you have the following dependency graph:
+
 * Plugin depends on Backbone and jQuery UI Button;
 * Backbone depends on jQuery and Underscore;
 * jQuery UI Button depends on jQuery UI Core and jQuery UI Widget;
