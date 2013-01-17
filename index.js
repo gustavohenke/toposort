@@ -86,7 +86,7 @@ function Toposort() {
 			edges.filter(function(e) {
 				return e[0] === node;
 			}).forEach(function(e) {
-				visit(e[1], predsCopy, i);
+				i = visit(e[1], predsCopy, i);
 			});
 
 			sorted.unshift(node);
