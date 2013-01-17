@@ -1,69 +1,39 @@
-# Sorting directed acyclic graphs
+# Toposort
+__Sorting directed acyclic graphs__
 _This was originally done by Marcel Klehr. [Why not checkout his original repo?](https://github.com/marcelklehr/node-toposort)_
 
 ## Installation
 `npm install toposort-class`
 
 ## Example
-Let's say, you have a list of pluginsor tasks, which depend on each other (`depends` defines plugins or tasks that should be executed before the plugin that declares the directive):
+Let's say you have the following dependency graph:
+* Plugin depends on Backbone and jQuery UI Button;
+* Backbone depends on jQuery and Underscore;
+* jQuery UI Button depends on jQuery UI Core and jQuery UI Widget;
+* jQuery UI Widget and jQuery UI Core depend on jQuery;
+* jQuery and Underscore don't depend on anyone.
 
-```
-var plugins =
-[ {name: "foo", depends: ['bar']}
-, {name: "bar", depends: ["ron"]}
-, {name: "john", depends: ["bar"]}
-, {name: "tom", depends: ["john"]}
-, {name: "ron", depends: []}
-]
-```
+Now, how would you sort this in a way that each asset will be correctly placed? You'll probably need the following sorting:
+* `jQuery`, `jQuery UI Core`, `jQuery UI Widget`, `jQuery UI Button`, `Underscore`, `Backbone`, `Plugin`
 
-A quick analysis, will result in the following dependency tree:
+You can achieve it with the following code, using `toposort-class`:
+```javascript
+var Toposort = require('./index'),
+	t = new Toposort();
 
-```
-tom
- |
-john  foo
- |     |
- - - - - 
-    |
-   bar
-    |
-   ron
-```
+t.add("jquery-ui-core", "jquery")
+ .add("jquery-ui-widget", "jquery")
+ .add("jquery-ui-button", ["jquery-ui-core", "jquery-ui-widget"])
+ .add("plugin", ["backbone", "jquery-ui-button"])
+ .add("backbone", ["underscore", "jquery"]);
 
-and thus the following execution flow:
+console.log(t.sort().reverse());
 
-```
-   ron
-    |
-   bar
- - - - - 
- |     |
-john  foo
- |
-tom
-```
-
-Let's try this with `toposort`:
-
-```js
-var toposort = require('toposort-class');
-
-// this will sort our plugins by dependecy
-var toposort = new Toposort();
-toposort.add("foo", "bar");
-toposort.add("bar", "ron");
-toposort.add("john", "bar");
-toposort.add("tom", "john");
-
-// now, we reverse the results to get the resulting execution flow, as above
-var results = toposort.sort().reverse();
-
-console.log(results)
-/*
-Output:
-[ 'ron', 'bar', 'foo', 'john', 'tom' ]
-*/
+/* Will output:
+ * ['jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-button', 'underscore', 'backbone', 'plugin']
+ *
+ * And you're done.
+ */
 ```
 
 ## API
@@ -71,16 +41,21 @@ First of all:
 ```javascript
 var Toposort = require('toposort-class'),
 	t = new Toposort();
+
+// If you prefer, you can do this way also:
+t = new require('toposort-class').Toposort();
 ```
 
 ### .add(item, deps)
 * _{String}_ `item` - The name of the dependent item that is being added
 * _{Array|String}_ `deps` - A dependency or list of dependencies of `item`
 
-__Returns:__ The Toposort instance.
+__Returns:__ _{Toposort}_ The Toposort instance, for chaining.
 
 ### .sort()
-__Returns:__ The list of dependencies topologically sorted.
+__Returns:__ _{Array}_ The list of dependencies topologically sorted.
+
+This method will check for cyclic dependencies, like "A is dependent of A".
 
 ## Legal
 MIT License
