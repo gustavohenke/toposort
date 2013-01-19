@@ -20,7 +20,7 @@ Now, how would you sort this in a way that each asset will be correctly placed? 
 
 You can achieve it with the following code, using `toposort-class`:
 ```javascript
-var Toposort = require('./index'),
+var Toposort = require('toposort-class'),
 	t = new Toposort();
 
 t.add("jquery-ui-core", "jquery")
