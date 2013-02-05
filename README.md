@@ -1,4 +1,4 @@
-# Toposort
+# Toposort [![Build Status](https://travis-ci.org/gustavohenke/node-toposort.png?branch=master)](https://travis-ci.org/gustavohenke/node-toposort)
 __Sorting directed acyclic graphs__
 _This was originally done by Marcel Klehr. [Why not checkout his original repo?](https://github.com/marcelklehr/node-toposort)_
 
