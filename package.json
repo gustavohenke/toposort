@@ -1,6 +1,6 @@
 {
 	"name":             "toposort-class",
-	"version":          "0.1.2",
+	"version":          "0.1.3",
 	"description":      "Topological sort of directed acyclic graphs (like dependecy lists)",
 	"main":             "index.js",
 	"devDependencies": {
