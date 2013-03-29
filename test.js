@@ -42,5 +42,11 @@ vows.describe("Toposort").addBatch({
 		 .add( "1", "3" )
 		
 		assert.throws( function() { t.sort(); }, Error );
+	},
+	"#2 - should add the item if an empty array of dependencies is passed": function() {
+		var t = new Toposort(),
+			out = t.add( "1", [] ).sort();
+
+		assert.deepEqual( out, [ "1" ] );
 	}
 }).export( module );

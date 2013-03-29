@@ -28,9 +28,9 @@ function Toposort() {
 			throw new TypeError("Dependent name must be given as a not empty string");
 		}
 
-		if ( deps ) {
-			var tmp = Array.isArray( deps ) ? deps.slice() : [ deps ];
-			tmp.forEach(function( dep ) {
+		deps = Array.isArray( deps ) ? deps.slice() : [ deps ];
+		if ( deps.length ) {
+			deps.forEach(function( dep ) {
 				if ( typeof dep !== "string" || !dep ) {
 					throw new TypeError("Dependency name must be given as a not empty string");
 				}
