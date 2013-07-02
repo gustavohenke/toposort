@@ -4,10 +4,10 @@
  *
  * @class
  * @since   0.1.0
- * @see     https://github.com/marcelklehr/node-toposort
+ * @see     https://github.com/marcelklehr/toposort
  * @author  Marcel Klehr <mklehr@gmx.net>
  *
- * @see     https://github.com/gustavohenke/node-toposort
+ * @see     https://github.com/gustavohenke/toposort
  * @author  Gustavo Henke <gustavo@injoin.com.br>
  */
 function Toposort() {
