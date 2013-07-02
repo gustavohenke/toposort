@@ -1,17 +1,19 @@
 {
 	"name":             "toposort-class",
-	"version":          "0.1.4",
+	"version":          "0.2.0",
 	"description":      "Topological sort of directed acyclic graphs (like dependecy lists)",
-	"main":             "index.js",
+	"main":             "./toposort.js",
 	"devDependencies": {
-		"vows": "*"
+		"mocha": "~1.12.x",
+		"chai":  "~1.7.x"
 	},
 	"scripts": {
-		"test": "vows --spec test.js"
+		"test": "mocha",
+		"pretest": "node browser-test-setup.js"
 	},
 	"repository": {
 		"type": "git",
-		"url":  "https://github.com/gustavohenke/node-toposort.git"
+		"url":  "https://github.com/gustavohenke/toposort.git"
 	},
 	"keywords": [
 		"topological",

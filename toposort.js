@@ -25,20 +25,20 @@ function Toposort() {
 	 */
 	this.add = function( item, deps ) {
 		if ( typeof item !== "string" || !item ) {
-			throw new TypeError("Dependent name must be given as a not empty string");
+			throw new TypeError( "Dependent name must be given as a not empty string" );
 		}
 
 		deps = Array.isArray( deps ) ? deps.slice() : [ deps ];
 		if ( deps.length ) {
 			deps.forEach(function( dep ) {
 				if ( typeof dep !== "string" || !dep ) {
-					throw new TypeError("Dependency name must be given as a not empty string");
+					throw new TypeError( "Dependency name must be given as a not empty string" );
 				}
 
-				edges.push( [ item, dep ] );
+				edges.push([ item, dep ]);
 			});
 		} else {
-			edges.push( [ item ] );
+			edges.push([ item ]);
 		}
 
 		return self;
@@ -51,8 +51,8 @@ function Toposort() {
 	 * @returns {String[]}  The list of items topologically sorted.
 	 */
 	this.sort = function() {
-		var nodes = [],
-			sorted = [];
+		var nodes = [];
+		var sorted = [];
 
 		edges.forEach(function( edge ) {
 			edge.forEach(function( n ) {
@@ -66,7 +66,7 @@ function Toposort() {
 			predecessors = predecessors || [];
 
 			if ( predecessors.indexOf( node ) > -1 ) {
-				throw new Error( require("util").format( "Cyclic dependency found. '%s' is dependent of itself.", node ) );
+				throw new Error( "Cyclic dependency found. '" + node + "' is dependent of itself." );
 			}
 
 			var index = nodes.indexOf( node );
@@ -101,4 +101,8 @@ function Toposort() {
 
 }
 
-module.exports = exports.Toposort = Toposort;
+if ( module && module.exports ) {
+	module.exports = exports.Toposort = Toposort;
+} else if ( window ) {
+	window.Toposort = Toposort;
+}
