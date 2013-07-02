@@ -1,9 +1,11 @@
-# Toposort [![Build Status](https://travis-ci.org/gustavohenke/node-toposort.png?branch=master)](https://travis-ci.org/gustavohenke/node-toposort)
-__Sorting directed acyclic graphs__
+# Toposort [![Build Status](https://travis-ci.org/gustavohenke/toposort.png?branch=master)](https://travis-ci.org/gustavohenke/toposort)
+__Sorting directed acyclic graphs, for Node.js and  the browser__
 _This was originally done by Marcel Klehr. [Why not checkout his original repo?](https://github.com/marcelklehr/toposort)_
 
 ## Installation
 `npm install toposort-class`
+
+Or [download toposort.js](https://raw.github.com/gustavohenke/toposort/master/toposort.js) file for use in the browser.
 
 ## Example
 Let's say you have the following dependency graph:
