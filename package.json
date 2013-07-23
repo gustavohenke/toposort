@@ -24,7 +24,8 @@
 		"dependency",
 		"list",
 		"dependencies",
-		"acyclic"
+		"acyclic",
+		"browser"
 	],
 	"author":           ["Marcel Klehr <mklehr@gmx.net>", "Gustavo Henke <gustavo@injoin.com.br>"],
 	"license":          "MIT",
