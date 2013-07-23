@@ -3,9 +3,12 @@ __Sorting directed acyclic graphs, for Node.js and  the browser__
 _This was originally done by Marcel Klehr. [Why not checkout his original repo?](https://github.com/marcelklehr/toposort)_
 
 ## Installation
-`npm install toposort-class`
+There are a few ways for installing Toposort. Here are them:
 
-Or [download toposort.js](https://raw.github.com/gustavohenke/toposort/master/toposort.js) file for use in the browser.
+* Via NPM: `npm install toposort-class`
+* Via Bower: `bower install toposort`
+* Via Git: `git clone git://github.com/gustavohenke/toposort.git`
+* [Direct download](https://raw.github.com/gustavohenke/toposort/master/toposort.js) for use in the browser
 
 ## Example
 Let's say you have the following dependency graph:
