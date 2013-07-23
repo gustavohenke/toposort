@@ -9,7 +9,7 @@
 	},
 	"scripts": {
 		"test": "mocha",
-		"pretest": "node browser-test-setup.js"
+		"pretest": "node scripts/browser-test.js"
 	},
 	"repository": {
 		"type": "git",
