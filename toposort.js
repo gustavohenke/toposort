@@ -11,98 +11,102 @@
  * @author  Gustavo Henke <gustavo@injoin.com.br>
  */
 function Toposort() {
-	"use strict";
-	var self = this,
-		edges = [];
+    "use strict";
+    var self = this;
+    var edges = [];
 
-	/**
-	 * Adds dependency edges.
-	 * 
-	 * @since   0.1.0
-	 * @param   {String} item               An dependent name. Must be an string and not empty
-	 * @param   {String[]|String} [deps]    An dependency or array of dependencies 
-	 * @returns {Toposort}                  The Toposort instance
-	 */
-	this.add = function( item, deps ) {
-		if ( typeof item !== "string" || !item ) {
-			throw new TypeError( "Dependent name must be given as a not empty string" );
-		}
+    /**
+     * Adds dependency edges.
+     *
+     * @since   0.1.0
+     * @param   {String} item               An dependent name. Must be an string and not empty
+     * @param   {String[]|String} [deps]    An dependency or array of dependencies
+     * @returns {Toposort}                  The Toposort instance
+     */
+    this.add = function( item, deps ) {
+        if ( typeof item !== "string" || !item ) {
+            throw new TypeError( "Dependent name must be given as a not empty string" );
+        }
 
-		deps = Array.isArray( deps ) ? deps.slice() : [ deps ];
-		if ( deps.length ) {
-			deps.forEach(function( dep ) {
-				if ( typeof dep !== "string" || !dep ) {
-					throw new TypeError( "Dependency name must be given as a not empty string" );
-				}
+        deps = Array.isArray( deps ) ? deps.slice() : [ deps ];
+        if ( deps.length ) {
+            deps.forEach(function( dep ) {
+                if ( typeof dep !== "string" || !dep ) {
+                    throw new TypeError( "Dependency name must be given as a not empty string" );
+                }
 
-				edges.push([ item, dep ]);
-			});
-		} else {
-			edges.push([ item ]);
-		}
+                edges.push([ item, dep ]);
+            });
+        } else {
+            edges.push([ item ]);
+        }
 
-		return self;
-	};
+        return self;
+    };
 
-	/**
-	 * Runs the toposorting and return an ordered array of strings
-	 * 
-	 * @since   0.1.0
-	 * @returns {String[]}  The list of items topologically sorted.
-	 */
-	this.sort = function() {
-		var nodes = [];
-		var sorted = [];
+    /**
+     * Runs the toposorting and return an ordered array of strings
+     *
+     * @since   0.1.0
+     * @returns {String[]}  The list of items topologically sorted.
+     */
+    this.sort = function() {
+        var nodes = [];
+        var sorted = [];
 
-		edges.forEach(function( edge ) {
-			edge.forEach(function( n ) {
-				if ( nodes.indexOf( n ) === -1 ) {
-					nodes.push( n );
-				}
-			});
-		});
+        edges.forEach(function( edge ) {
+            edge.forEach(function( n ) {
+                if ( nodes.indexOf( n ) === -1 ) {
+                    nodes.push( n );
+                }
+            });
+        });
 
-		function visit( node, predecessors, i ) {
-			predecessors = predecessors || [];
+        function visit( node, predecessors, i ) {
+            var index, predsCopy;
+            predecessors = predecessors || [];
 
-			if ( predecessors.indexOf( node ) > -1 ) {
-				throw new Error( "Cyclic dependency found. '" + node + "' is dependent of itself." );
-			}
+            if ( predecessors.indexOf( node ) > -1 ) {
+                throw new Error(
+                    "Cyclic dependency found. " +
+                    "'" + node + "' is dependent of itself."
+                );
+            }
 
-			var index = nodes.indexOf( node );
-			if ( index === -1 ) {
-				return i;
-			}
+            index = nodes.indexOf( node );
+            if ( index === -1 ) {
+                return i;
+            }
 
-			nodes.splice( index, 1 );
-			if ( predecessors.length === 0 ) {
-				i--;
-			}
+            nodes.splice( index, 1 );
+            if ( predecessors.length === 0 ) {
+                i--;
+            }
 
-			var predsCopy = predecessors.slice();
-			predsCopy.push( node );
+            predsCopy = predecessors.slice();
+            predsCopy.push( node );
 
-			edges.filter(function( e ) {
-				return e[ 0 ] === node;
-			}).forEach(function( e ) {
-				i = visit( e[ 1 ], predsCopy, i );
-			});
+            edges.filter(function( e ) {
+                return e[ 0 ] === node;
+            }).forEach(function( e ) {
+                i = visit( e[ 1 ], predsCopy, i );
+            });
 
-			sorted.unshift( node );
-			return i;
-		}
+            sorted.unshift( node );
+            return i;
+        }
 
-		for ( var i = 0; i < nodes.length; i++ ) {
-			i = visit( nodes[ i ], null, i );
-		}
+        for ( var i = 0; i < nodes.length; i++ ) {
+            i = visit( nodes[ i ], null, i );
+        }
 
-		return sorted;
-	};
+        return sorted;
+    };
 
 }
 
 if ( module && module.exports ) {
-	module.exports = exports.Toposort = Toposort;
+    module.exports = exports.Toposort = Toposort;
 } else if ( window ) {
-	window.Toposort = Toposort;
+    window.Toposort = Toposort;
 }
