@@ -1,33 +1,37 @@
 {
-	"name":             "toposort-class",
-	"version":          "0.2.1",
-	"description":      "Topological sort of directed acyclic graphs (like dependecy lists)",
-	"main":             "./toposort.js",
-	"devDependencies": {
-		"mocha": "~1.13.0",
-		"chai":  "~1.7.2"
-	},
-	"scripts": {
-		"test": "mocha",
-		"pretest": "node scripts/browser-test.js"
-	},
-	"repository": {
-		"type": "git",
-		"url":  "https://github.com/gustavohenke/toposort.git"
-	},
-	"keywords": [
-		"topological",
-		"sort",
-		"sorting",
-		"graphs",
-		"graph",
-		"dependency",
-		"list",
-		"dependencies",
-		"acyclic",
-		"browser"
-	],
-	"author":           ["Marcel Klehr <mklehr@gmx.net>", "Gustavo Henke <gustavo@injoin.com.br>"],
-	"license":          "MIT",
-	"readmeFilename":   "README.md"
+    "name":             "toposort-class",
+    "version":          "0.2.1",
+    "description":      "Topological sort of directed acyclic graphs (like dependecy lists)",
+    "main":             "./toposort.js",
+    "devDependencies": {
+        "mocha": "~1.17.0",
+        "chai":  "~1.8.1",
+        "grunt": "~0.4.2",
+        "grunt-jscs-checker": "~0.3.2",
+        "grunt-contrib-jshint": "~0.8.0",
+        "grunt-mocha-test": "~0.8.2",
+        "grunt-mocha": "~0.4.9"
+    },
+    "scripts": {
+        "test": "grunt"
+    },
+    "repository": {
+        "type": "git",
+        "url":  "https://github.com/gustavohenke/toposort.git"
+    },
+    "keywords": [
+        "topological",
+        "sort",
+        "sorting",
+        "graphs",
+        "graph",
+        "dependency",
+        "list",
+        "dependencies",
+        "acyclic",
+        "browser"
+    ],
+    "author":           ["Marcel Klehr <mklehr@gmx.net>", "Gustavo Henke <gustavo@injoin.com.br>"],
+    "license":          "MIT",
+    "readmeFilename":   "README.md"
 }
