@@ -19,7 +19,6 @@
     "disallowKeywords": [ "with" ],
     "disallowMultipleLineBreaks": true,
     "disallowKeywordsOnNewLine": [ "else" ],
-    "requireLineFeedAtFileEnd": true,
     "disallowSpaceAfterObjectKeys": true,
     "validateLineBreaks": "LF"
 }

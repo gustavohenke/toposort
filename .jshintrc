@@ -18,5 +18,7 @@
     "passfail": false,
     "unused": true,
     "boss": true,
-    "quotmark": "double"
+    "quotmark": "double",
+
+    "predef": [ "suite", "define", "test" ]
 }

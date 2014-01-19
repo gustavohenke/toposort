@@ -25,18 +25,22 @@ module.exports = function( grunt ) {
             }
         },
         mocha: {
-            spec: {
+            normal: {
                 options: {
                     run: true
                 },
                 src: "test/index.html"
+            },
+            amd: {
+                src: "test/amd.html"
             }
         }
     });
 
     // Copy browser testing stuff
-    grunt.file.copy( "node_modules/mocha/mocha.js", "test/lib/mocha.js" );
+    grunt.file.copy( "node_modules/grunt-mocha/node_modules/mocha/mocha.js", "test/lib/mocha.js" );
     grunt.file.copy( "node_modules/chai/chai.js", "test/lib/chai.js" );
+    grunt.file.copy( "node_modules/requirejs/require.js", "test/lib/require.js" );
 
     // Load dependencies
     grunt.loadNpmTasks( "grunt-contrib-jshint" );

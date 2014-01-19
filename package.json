@@ -4,7 +4,7 @@
     "description":      "Topological sort of directed acyclic graphs (like dependecy lists)",
     "main":             "./toposort.js",
     "devDependencies": {
-        "mocha": "~1.17.0",
+        "requirejs": "~2.1.10",
         "chai":  "~1.8.1",
         "grunt": "~0.4.2",
         "grunt-jscs-checker": "~0.3.2",
