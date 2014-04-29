@@ -7,7 +7,7 @@
         "requirejs": "~2.1.10",
         "chai":  "~1.8.1",
         "grunt": "~0.4.2",
-        "grunt-jscs-checker": "~0.3.2",
+        "grunt-jscs-checker": "~0.4.1",
         "grunt-contrib-jshint": "~0.8.0",
         "grunt-mocha-test": "~0.8.2",
         "grunt-mocha": "~0.4.9"

@@ -13,6 +13,9 @@ module.exports = function( grunt ) {
             ]
         },
         jscs: {
+            options: {
+                config: ".jscsrc"
+            },
             all: "<%= jshint.all %>"
         },
         mochaTest: {
