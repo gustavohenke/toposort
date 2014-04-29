@@ -72,8 +72,8 @@
 
                 if ( predecessors.indexOf( node ) > -1 ) {
                     throw new Error(
-                        "Cyclic dependency found. '" + node + "' is dependent of itself.\n"+
-                        "Dependency Chain: "+predecessors.join(" -> ") + " => " + node
+                        "Cyclic dependency found. '" + node + "' is dependent of itself.\n" +
+                        "Dependency Chain: " + predecessors.join( " -> " ) + " => " + node
                     );
                 }
 
