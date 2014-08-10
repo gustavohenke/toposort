@@ -1,3 +1,10 @@
+# Node
 node_modules/
+npm-debug.log
+
+# IntelliJ
 .idea/
+*.iml
+
+# Generated files
 test/lib/
