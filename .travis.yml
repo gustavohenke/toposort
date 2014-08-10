@@ -1,4 +1,9 @@
-before_install: npm install -g grunt-cli
+before_install:
+# Update NPM, so installing stuff which uses the new ^ syntax in their
+  # dependencies doesn't error the build.
+  - npm install -g npm
+
+  - npm install -g grunt-cli
 language: node_js
 node_js:
-- 0.10
+  - 0.10
