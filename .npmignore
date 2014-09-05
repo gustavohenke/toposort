@@ -1,0 +1,9 @@
+# Development stuff
+test/
+Gruntfile.js
+
+# Configuration files
+.jscsrc
+.jshintrc
+.travis.yml
+bower.json
