@@ -5,6 +5,8 @@
 export default class Toposort {
     edges = [];
 
+    Toposort = Toposort;
+
     /**
      * Adds dependency edges.
      *
@@ -94,7 +96,7 @@ export default class Toposort {
     /**
      * Clears edges
      *
-     * @since   0.1.0
+     * @since   0.4.0
      * @returns {Toposort}                  The Toposort instance
      */
     clear() {

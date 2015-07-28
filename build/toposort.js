@@ -52,6 +52,7 @@
             _classCallCheck( this, Toposort );
 
             this.edges = [];
+            this.Toposort = Toposort;
         }
 
         /**
@@ -225,7 +226,7 @@
         /**
          * Clears edges
          *
-         * @since   0.1.0
+         * @since   0.4.0
          * @returns {Toposort}                  The Toposort instance
          */
 
