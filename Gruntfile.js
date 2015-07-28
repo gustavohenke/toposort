@@ -43,7 +43,6 @@ module.exports = function( grunt ) {
                 loose:   "all",
                 options: {
                     optional: [
-                        'runtime',
                         'spec.undefinedToVoid',
                         'minification.constantFolding',
                         'minification.propertyLiterals'

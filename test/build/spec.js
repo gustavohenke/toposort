@@ -1,26 +1,29 @@
 (function( global, factory ) {
     if( typeof define === 'function' && define.amd ) {
-        define( ['exports', '../../', 'babel-runtime/helpers/interop-require-default', 'assert'], factory );
+        define( ['exports', '../../', 'assert'], factory );
     } else if( typeof exports !== 'undefined' ) {
-        factory( exports, require( '../../' ), require( 'babel-runtime/helpers/interop-require-default' ),
-            require( 'assert' ) );
+        factory( exports, require( '../../' ), require( 'assert' ) );
     } else {
         var mod = {
             exports: {}
         };
-        factory( mod.exports, global.Toposort, global._interopRequireDefault, global.assert );
+        factory( mod.exports, global.Toposort, global.assert );
         global.spec = mod.exports;
     }
-})( this, function( exports, _, _babelRuntimeHelpersInteropRequireDefault, _assert ) {
+})( this, function( exports, _, _assert ) {
     /**
      * Created by Aaron on 7/28/2015.
      */
 
     'use strict';
 
-    var _Toposort = (0, _babelRuntimeHelpersInteropRequireDefault['default'])( _ );
+    function _interopRequireDefault( obj ) {
+        return obj && obj.__esModule ? obj : {'default': obj};
+    }
 
-    var _assert2 = (0, _babelRuntimeHelpersInteropRequireDefault['default'])( _assert );
+    var _Toposort = _interopRequireDefault( _ );
+
+    var _assert2 = _interopRequireDefault( _assert );
 
     describe( 'Toposort', function() {
         it( 'should sort correctly', function() {
