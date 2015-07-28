@@ -67,5 +67,14 @@ __Returns:__ _{Array}_ The list of dependencies topologically sorted.
 
 This method will check for cyclic dependencies, like "A is dependent of A".
 
+### .clear()
+__Returns:__ _{Toposort}_ The Toposort instance, for chaining.
+
+Clears all edges, effectively resetting the instance.
+
+### .Toposort
+
+Reference to the Toposort constructor.
+
 ## Legal
 MIT License
