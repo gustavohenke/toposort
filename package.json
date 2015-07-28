@@ -2,7 +2,7 @@
   "name": "toposort-class-es6",
   "version": "0.1.0",
   "description": "Topological sort of directed acyclic graphs (like dependecy lists)",
-  "main": "./toposort.js",
+  "main": "./index.js",
   "devDependencies": {
     "babel-runtime": "^5.8.12",
     "grunt": "^0.4.5",
