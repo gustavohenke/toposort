@@ -211,6 +211,8 @@
                         i = visit( edge[1], i, copy );
                     }
                 }
+                sorted.unshift( node );
+                return i;
             };
 
             for( var i = 0; i < nodes.length; i++ ) {

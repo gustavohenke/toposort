@@ -79,6 +79,9 @@ export default class Toposort {
                     i = visit( edge[1], i, copy );
                 }
             }
+            sorted.unshift( node );
+            return i;
+
         };
 
         for( let i = 0; i < nodes.length; i++ ) {
