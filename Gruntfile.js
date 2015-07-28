@@ -1,55 +1,87 @@
-module.exports = function( grunt ) {
-    "use strict";
+/**
+ * Created by Aaron on 7/9/2015.
+ */
 
-    grunt.initConfig({
-        jshint: {
+module.exports = function( grunt ) {
+
+    grunt.loadNpmTasks( 'grunt-babel' );
+    grunt.loadNpmTasks( 'grunt-contrib-clean' );
+    grunt.loadNpmTasks( 'grunt-banner' );
+
+    var LICENSE = '/****\n * ' +
+                  grunt.file.read( './LICENSE', {encoding: 'utf-8'} ).replace( /\n/ig, '\n * ' ) +
+                  '\n ****/';
+
+    grunt.initConfig( {
+        babel:     {
             options: {
-                jshintrc: ".jshintrc"
+                ast:          false,
+                sourceMaps:   false,
+                nonStandard:  false,
+                compact:      "false",
+                modules:      "umd",
+                experimental: true
             },
-            all: [
-                "Gruntfile.js",
-                "toposort.js",
-                "test/spec.js"
-            ]
-        },
-        jscs: {
-            options: {
-                config: ".jscsrc"
-            },
-            all: "<%= jshint.all %>"
-        },
-        mochaTest: {
-            spec: {
+            build:   {
                 options: {
-                    reporter: "spec",
-                    ui: "tdd"
+                    loose:    "all",
+                    optional: [
+                        'spec.undefinedToVoid',
+                        'minification.constantFolding',
+                        'minification.propertyLiterals',
+                        'es7.classProperties'
+                    ]
                 },
-                src: "test/spec.js"
+                files:   [{
+                    expand: true,
+                    cwd:    './src/',
+                    src:    './**/*.js',
+                    dest:   './build/'
+                }]
+            },
+            tests:   {
+                loose:   "all",
+                options: {
+                    optional: [
+                        'runtime',
+                        'spec.undefinedToVoid',
+                        'minification.constantFolding',
+                        'minification.propertyLiterals'
+                    ]
+                },
+                files:   [{
+                    expand: true,
+                    cwd:    './test/src/',
+                    src:    './**/*.js',
+                    dest:   './test/build/'
+                }]
             }
         },
-        mocha: {
-            normal: {
+        usebanner: {
+            license: {
                 options: {
-                    run: true
+                    position:  'top',
+                    banner:    LICENSE,
+                    linebreak: true
                 },
-                src: "test/index.html"
+                files:   {
+                    src: ['./build/**/*.js']
+                }
+            }
+        },
+        clean:     {
+            build: {
+                src: ['./build']
             },
-            amd: {
-                src: "test/amd.html"
+            tests: {
+                src: ['./test/build']
             }
         }
-    });
+    } );
 
-    // Copy browser testing stuff
-    grunt.file.copy( "node_modules/grunt-mocha/node_modules/mocha/mocha.js", "test/lib/mocha.js" );
-    grunt.file.copy( "node_modules/chai/chai.js", "test/lib/chai.js" );
-    grunt.file.copy( "node_modules/requirejs/require.js", "test/lib/require.js" );
+    grunt.registerTask( 'build', ['clean:build', 'babel:build', 'usebanner:license'] );
 
-    // Load dependencies
-    grunt.loadNpmTasks( "grunt-contrib-jshint" );
-    grunt.loadNpmTasks( "grunt-jscs-checker" );
-    grunt.loadNpmTasks( "grunt-mocha" );
-    grunt.loadNpmTasks( "grunt-mocha-test" );
+    grunt.registerTask( 'build-tests', ['clean:tests', 'babel:tests'] );
 
-    grunt.registerTask( "default", [ "jshint", "jscs", "mocha", "mochaTest" ] );
+    grunt.registerTask( 'default', ['build', 'build-tests'] );
 };
