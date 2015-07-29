@@ -79,4 +79,17 @@ describe( "Toposort", function() {
 
         assert.deepEqual( out, ["1", "3", "2", "4", "5", "6", "7", "8", "9"] );
     } );
+
+    it( "should work on the example dependencies", function() {
+        var t = new Toposort();
+
+        t.add( "jquery-ui-core", "jquery" )
+            .add( "jquery-ui-widget", "jquery" )
+            .add( "jquery-ui-button", ["jquery-ui-core", "jquery-ui-widget"] )
+            .add( "plugin", ["backbone", "jquery-ui-button"] )
+            .add( "backbone", ["underscore", "jquery"] );
+
+        assert.deepEqual( t.sort().reverse(),
+            ["jquery", "jquery-ui-core", "jquery-ui-widget", "jquery-ui-button", "underscore", "backbone", "plugin"] );
+    } )
 } );
