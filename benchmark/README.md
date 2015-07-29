@@ -6,4 +6,4 @@ Since I'm obsessed with performance, here is a tiny benchmark comparing the perf
 | Description              | Library      | Op/s       |  %   |
 |--------------------------|--------------|-----------:|-----:|
 | simple dependency chains | 0.3.1        | 28,818.96  | 14%  |
-|                          | 0.4.0        | 211,578.12 | 100% |
+|                          | 1.0.0-beta   | 211,578.12 | 100% |
