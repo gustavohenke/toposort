@@ -1,77 +1,82 @@
-"use strict";
+var Toposort = require( "../index.js" );
+var assert = require( "assert" );
 
-!function( suiteSetup ) {
-    if ( typeof define === "function" && define.amd ) {
-        define( [ "../toposort", "./lib/chai" ], suiteSetup );
-    } else {
-        suiteSetup();
-    }
-}(function( Toposort, chai ) {
-    var expect = chai ? chai.expect : null;
+describe( "Toposort", function() {
+    it( "should sort correctly", function() {
+        var arr, fails, possibilities;
+        var t = new Toposort();
 
-    suite( "Toposort", function() {
-        if ( !Toposort ) {
-            // Deal with browser/Node environments, if AMD support isn't available
-            if ( typeof window !== "undefined" ) {
-                expect = window.chai.expect;
-                Toposort = window.Toposort;
-            } else {
-                expect = require( "chai" ).expect;
-                Toposort = require( ".." );
+        t.add( "3", "2" )
+            .add( "2", "1" )
+            .add( "6", "5" )
+            .add( "5", ["2", "4"] );
+
+        arr = t.sort();
+        fails = [];
+
+        assert( Array.isArray( arr ) );
+
+        possibilities = [
+            ["3", "6", "5", "4", "2", "1"],
+            ["3", "6", "5", "2", "4", "1"],
+            ["6", "3", "5", "2", "4", "1"],
+            ["6", "3", "5", "2", "1", "4"],
+            ["6", "5", "3", "2", "1", "4"],
+            ["6", "5", "3", "2", "4", "1"],
+            ["6", "5", "4", "3", "2", "1"]
+        ];
+
+        possibilities.forEach( function( possibility ) {
+            try {
+                assert.deepEqual( arr, possibility );
+
+            } catch( e ) {
+                fails.push( e );
             }
+        } );
+
+        if( fails.length === possibilities.length ) {
+            throw fails[0];
         }
+    } );
 
-        test( "should sort correctly", function() {
-            var arr, fails, possibilities;
-            var t = new Toposort();
+    it( "should find cyclic dependencies", function() {
+        var t = new Toposort();
+        t.add( "3", "2" )
+            .add( "2", "1" )
+            .add( "1", "3" );
 
-            t.add( "3", "2" )
-             .add( "2", "1" )
-             .add( "6", "5" )
-             .add( "5", [ "2", "4" ] );
+        try {
+            t.sort();
 
-            arr = t.sort();
-            fails = [];
+            assert( false );
 
-            expect( arr ).to.be.an( "array" );
+        } catch( err ) {
+            assert( err instanceof Error );
+        }
+    } );
 
-            possibilities = [
-                [ "3", "6", "5", "4", "2", "1" ],
-                [ "3", "6", "5", "2", "4", "1" ],
-                [ "6", "3", "5", "2", "4", "1" ],
-                [ "6", "3", "5", "2", "1", "4" ],
-                [ "6", "5", "3", "2", "1", "4" ],
-                [ "6", "5", "3", "2", "4", "1" ],
-                [ "6", "5", "4", "3", "2", "1" ]
-            ];
+    it( "#2 - should add the item if an empty array of dependencies is passed", function() {
+        var t = new Toposort();
+        var out = t.add( "1", [] ).sort();
 
-            possibilities.forEach(function( possibility ) {
-                try {
-                    expect( arr ).to.deep.equal( possibility );
-                } catch ( e ) {
-                    fails.push( e );
-                }
-            });
+        assert.deepEqual( out, ["1"] );
+    } );
 
-            if ( fails.length === possibilities.length ) {
-                throw fails[ 0 ];
-            }
-        });
+    it( "should handle deeply nested dependencies", function() {
+        var t = new Toposort();
 
-        test( "should find cyclic dependencies", function() {
-            var t = new Toposort();
-            t.add( "3", "2" )
-             .add( "2", "1" )
-             .add( "1", "3" );
+        t.add( "3", "1" )
+            .add( "2", "3" )
+            .add( "4", ["2", "3"] )
+            .add( "5", ["3", "4"] )
+            .add( "6", ["3", "4", "5"] )
+            .add( "7", "1" )
+            .add( "8", ["1", "2", "3", "4", "5"] )
+            .add( "9", ["8", "6", "7"] );
 
-            expect( function() { t.sort(); }).to.throw( Error );
-        });
+        var out = t.sort().reverse();
 
-        test( "#2 - should add the item if an empty array of dependencies is passed", function() {
-            var t = new Toposort();
-            var out = t.add( "1", [] ).sort();
-
-            expect( out ).to.deep.equal([ "1" ]);
-        });
-    });
-});
+        assert.deepEqual( out, ["1", "3", "2", "4", "5", "6", "7", "8", "9"] );
+    } );
+} );

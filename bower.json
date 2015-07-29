@@ -1,7 +1,7 @@
 {
-    "name": "toposort",
-    "version": "0.3.1",
-    "main": "./toposort.js",
-    "ignore": [ "scripts/**", "test/**" ],
-    "dependencies": {}
+  "name":         "toposort",
+  "version": "1.0.0-beta",
+  "main":         "./build/toposort.js",
+  "ignore":       ["scripts/**", "test/**"],
+  "dependencies": {}
 }
