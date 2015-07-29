@@ -35,22 +35,6 @@ module.exports = function( grunt ) {
                     dest:   './build/'
                 }]
             },
-            tests:     {
-                loose:   "all",
-                options: {
-                    optional: [
-                        'spec.undefinedToVoid',
-                        'minification.constantFolding',
-                        'minification.propertyLiterals'
-                    ]
-                },
-                files:   [{
-                    expand: true,
-                    cwd:    './test/src/',
-                    src:    './**/*.js',
-                    dest:   './test/build/'
-                }]
-            },
             benchmark: {
                 loose:   "all",
                 options: {
@@ -90,9 +74,6 @@ module.exports = function( grunt ) {
             build:     {
                 src: ['./build']
             },
-            tests:     {
-                src: ['./test/build']
-            },
             benchmark: {
                 src: ['./benchmark/build']
             }
@@ -101,9 +82,7 @@ module.exports = function( grunt ) {
 
     grunt.registerTask( 'build', ['clean:build', 'babel:build', 'usebanner:license'] );
 
-    grunt.registerTask( 'build-tests', ['clean:tests', 'babel:tests'] );
-
     grunt.registerTask( 'build-benchmark', ['clean:benchmark', 'babel:benchmark'] );
 
-    grunt.registerTask( 'default', ['build', 'build-tests'] );
+    grunt.registerTask( 'default', ['build', 'build-benchmark'] );
 };

@@ -14,8 +14,8 @@
     "mocha":               "^2.2.5"
   },
   "scripts":         {
-    "test":           "mocha -b test/build",
-    "eslint":         "eslint src/toposort.js test/src/spec.js",
+    "test":   "mocha -b test",
+    "eslint": "eslint src/toposort.js test/spec.js",
     "benchmark":      "grunt build-benchmark && matcha benchmark/build/general.js",
     "benchmark-save": "grunt build-benchmark && matcha -R csv benchmark/build/general.js > benchmark/results.csv"
   },

@@ -1,6 +1,5 @@
-import Toposort from "../../";
-
-import assert from "assert";
+var Toposort = require( "../index.js" );
+var assert = require( "assert" );
 
 describe( "Toposort", function() {
     it( "should sort correctly", function() {
