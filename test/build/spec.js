@@ -11,10 +11,6 @@
         global.spec = mod.exports;
     }
 })( this, function( exports, _, _assert ) {
-    /**
-     * Created by Aaron on 7/28/2015.
-     */
-
     'use strict';
 
     function _interopRequireDefault( obj ) {

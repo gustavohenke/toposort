@@ -1,7 +1,3 @@
-/**
- * Created by Aaron on 7/28/2015.
- */
-
 export default class Toposort {
     edges = [];
 

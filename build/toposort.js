@@ -35,10 +35,6 @@
         global.toposort = mod.exports;
     }
 })( this, function( exports, module ) {
-    /**
-     * Created by Aaron on 7/28/2015.
-     */
-
     'use strict';
 
     function _classCallCheck( instance, Constructor ) {

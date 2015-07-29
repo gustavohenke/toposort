@@ -1,7 +1,3 @@
-/**
- * Created by Aaron on 7/28/2015.
- */
-
 import Toposort from '../../'
 
 import assert from 'assert';
