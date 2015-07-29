@@ -91,5 +91,5 @@ describe( "Toposort", function() {
 
         assert.deepEqual( t.sort().reverse(),
             ["jquery", "jquery-ui-core", "jquery-ui-widget", "jquery-ui-button", "underscore", "backbone", "plugin"] );
-    } )
+    } );
 } );
