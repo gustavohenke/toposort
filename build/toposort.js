@@ -1,18 +1,18 @@
 /****
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2015 Gustavo Henke and Aaron Trent
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * 
+ *
  ****/
 (function( global, factory ) {
     if( typeof define === "function" && define.amd ) {
@@ -163,8 +163,7 @@
             var visit = function visit( node, i ) {
                 var predecessors = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
 
-                var index = undefined,
-                    copy = undefined;
+                var index = undefined;
 
                 if( predecessors.indexOf( node ) > -1 ) {
                     throw new Error( "Cyclic dependency found. " + node + " is dependent of itself.\nDependency chain: "
@@ -172,17 +171,16 @@
                 }
 
                 index = nodes.indexOf( node );
+
                 if( index === -1 ) {
                     return i;
                 }
 
                 nodes.splice( index, 1 );
+
                 if( predecessors.length === 0 ) {
                     i--;
                 }
-
-                copy = predecessors.slice();
-                copy.push( node );
 
                 for( var _iterator4 = _this.edges, _isArray4 = Array.isArray( _iterator4 ), _i4 = 0, _iterator4 = _isArray4 ?
                                                                                                                   _iterator4 :
@@ -205,10 +203,12 @@
                     var edge = _ref4;
 
                     if( edge[0] === node ) {
-                        i = visit( edge[1], i, copy );
+                        i = visit( edge[1], i, predecessors.concat( [node] ) );
                     }
                 }
+
                 sorted.unshift( node );
+
                 return i;
             };
 

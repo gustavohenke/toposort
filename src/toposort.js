@@ -53,33 +53,33 @@ export default class Toposort {
         }
 
         var visit = ( node, i, predecessors = [] ) => {
-            let index, copy;
+            let index;
 
             if( predecessors.indexOf( node ) > -1 ) {
                 throw new Error( `Cyclic dependency found. ${node} is dependent of itself.\nDependency chain: ${predecessors.join( " -> " )} => ${node}` );
             }
 
             index = nodes.indexOf( node );
+
             if( index === -1 ) {
                 return i;
             }
 
             nodes.splice( index, 1 );
+
             if( predecessors.length === 0 ) {
                 i--;
             }
 
-            copy = predecessors.slice();
-            copy.push( node );
-
             for( let edge of this.edges ) {
                 if( edge[0] === node ) {
-                    i = visit( edge[1], i, copy );
+                    i = visit( edge[1], i, predecessors.concat( [node] ) );
                 }
             }
-            sorted.unshift( node );
-            return i;
 
+            sorted.unshift( node );
+
+            return i;
         };
 
         for( let i = 0; i < nodes.length; i++ ) {
