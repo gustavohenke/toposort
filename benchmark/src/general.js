@@ -1,7 +1,3 @@
-/**
- * Created by Aaron on 7/29/2015.
- */
-
 import Toposort from "../../index.js";
 import OldToposort from "../0.3.1/toposort.js";
 

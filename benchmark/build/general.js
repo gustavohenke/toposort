@@ -11,10 +11,6 @@
         global.general = mod.exports;
     }
 })( this, function( exports, _indexJs, _toposortJs ) {
-    /**
-     * Created by Aaron on 7/29/2015.
-     */
-
     'use strict';
 
     function _interopRequireDefault( obj ) {
