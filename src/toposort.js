@@ -12,16 +12,16 @@ export default class Toposort {
      * @returns {Toposort}                  The Toposort instance
      */
     add( item, deps ) {
-        if( typeof item !== 'string' || !item ) {
-            throw new TypeError( 'Dependent name must be given as a not empty string' );
+        if( typeof item !== "string" || !item ) {
+            throw new TypeError( "Dependent name must be given as a not empty string" );
         }
 
         deps = Array.isArray( deps ) ? deps : [deps];
 
         if( deps.length > 0 ) {
             for( let dep of deps ) {
-                if( typeof dep !== 'string' || !dep ) {
-                    throw new TypeError( 'Dependency name must be given as a not empty string' );
+                if( typeof dep !== "string" || !dep ) {
+                    throw new TypeError( "Dependency name must be given as a not empty string" );
                 }
 
                 this.edges.push( [item, dep] );
@@ -56,7 +56,7 @@ export default class Toposort {
             let index, copy;
 
             if( predecessors.indexOf( node ) > -1 ) {
-                throw new Error( `Cyclic dependency found. ${node} is dependent of itself.\nDependency chain: ${predecessors.join( ' -> ' )} => ${node}` );
+                throw new Error( `Cyclic dependency found. ${node} is dependent of itself.\nDependency chain: ${predecessors.join( " -> " )} => ${node}` );
             }
 
             index = nodes.indexOf( node );
