@@ -1,5 +1,5 @@
-import Toposort from "../../index.js";
-import OldToposort from "../0.3.1/toposort.js";
+var Toposort = require( "../index.js" );
+var OldToposort = require( "./0.3.1/toposort.js" );
 
 suite( "simple dependency chains", function() {
     set( "delay", 0 );
