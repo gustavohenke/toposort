@@ -42,7 +42,7 @@ export default class Toposort {
      */
     sort() {
         let nodes = [];
-        let sorted = [];
+        let offset = 0;
 
         for( let edge of this.edges ) {
             for( let node of edge ) {
@@ -51,6 +51,8 @@ export default class Toposort {
                 }
             }
         }
+
+        let sorted = new Array( nodes.length );
 
         var visit = ( node, i, predecessors = [] ) => {
             let index, copy;
@@ -61,11 +63,9 @@ export default class Toposort {
 
             index = nodes.indexOf( node );
 
-            if( index === -1 ) {
+            if( index === -1 || index < offset ) {
                 return i;
             }
-
-            nodes.splice( index, 1 );
 
             if( predecessors.length === 0 ) {
                 i--;
@@ -79,13 +79,16 @@ export default class Toposort {
                 }
             }
 
-            sorted.unshift( node );
+            //increment this first so the next statement is one forward
+            offset++;
+
+            sorted[sorted.length - offset] = node;
 
             return i;
         };
 
-        for( let i = 0; i < nodes.length; i++ ) {
-            i = visit( nodes[i], i );
+        for( let i = 0; i < nodes.length - offset; i++ ) {
+            i = visit( nodes[i + offset], i );
         }
 
         return sorted;
