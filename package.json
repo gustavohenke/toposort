@@ -10,11 +10,14 @@
     "grunt-babel":         "^5.0.1",
     "grunt-banner":        "^0.4.0",
     "grunt-contrib-clean": "^0.6.0",
+    "matcha":       "^0.6.0",
     "mocha":               "^2.2.5"
   },
   "scripts":         {
-    "test": "mocha -b test/build",
-    "eslint": "eslint src/toposort.js test/src/spec.js"
+    "test":           "mocha -b test/build",
+    "eslint":         "eslint src/toposort.js test/src/spec.js",
+    "benchmark":      "grunt build-benchmark && matcha benchmark/build/general.js",
+    "benchmark-save": "grunt build-benchmark && matcha -R csv benchmark/build/general.js > benchmark/results.csv"
   },
   "repository":      {
     "type": "git",

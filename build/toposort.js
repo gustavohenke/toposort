@@ -112,7 +112,7 @@
             var _this = this;
 
             var nodes = [];
-            var sorted = [];
+            var offset = 0;
 
             for( var _iterator2 = this.edges, _isArray2 = Array.isArray( _iterator2 ), _i2 = 0, _iterator2 = _isArray2 ?
                                                                                                              _iterator2 :
@@ -160,6 +160,8 @@
                 }
             }
 
+            var sorted = new Array( nodes.length );
+
             var visit = function visit( node, i ) {
                 var predecessors = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
 
@@ -173,11 +175,9 @@
 
                 index = nodes.indexOf( node );
 
-                if( index === -1 ) {
+                if( index === -1 || index < offset ) {
                     return i;
                 }
-
-                nodes.splice( index, 1 );
 
                 if( predecessors.length === 0 ) {
                     i--;
@@ -210,13 +210,16 @@
                     }
                 }
 
-                sorted.unshift( node );
+                //increment this first so the next statement is one forward
+                offset++;
+
+                sorted[sorted.length - offset] = node;
 
                 return i;
             };
 
-            for( var i = 0; i < nodes.length; i++ ) {
-                i = visit( nodes[i], i );
+            for( var i = 0; i < nodes.length - offset; i++ ) {
+                i = visit( nodes[i + offset], i );
             }
 
             return sorted;
