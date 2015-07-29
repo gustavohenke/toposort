@@ -1,18 +1,18 @@
 /****
  * The MIT License (MIT)
- *
+ * 
  * Copyright (c) 2015 Gustavo Henke and Aaron Trent
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,12 +20,12 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
+ * 
  ****/
 (function( global, factory ) {
-    if( typeof define === 'function' && define.amd ) {
-        define( ['exports', 'module'], factory );
-    } else if( typeof exports !== 'undefined' && typeof module !== 'undefined' ) {
+    if( typeof define === "function" && define.amd ) {
+        define( ["exports", "module"], factory );
+    } else if( typeof exports !== "undefined" && typeof module !== "undefined" ) {
         factory( exports, module );
     } else {
         var mod = {
@@ -35,11 +35,11 @@
         global.toposort = mod.exports;
     }
 })( this, function( exports, module ) {
-    'use strict';
+    "use strict";
 
     function _classCallCheck( instance, Constructor ) {
         if( !(instance instanceof Constructor) ) {
-            throw new TypeError( 'Cannot call a class as a function' );
+            throw new TypeError( "Cannot call a class as a function" );
         }
     }
 
@@ -61,8 +61,8 @@
          */
 
         Toposort.prototype.add = function add( item, deps ) {
-            if( typeof item !== 'string' || !item ) {
-                throw new TypeError( 'Dependent name must be given as a not empty string' );
+            if( typeof item !== "string" || !item ) {
+                throw new TypeError( "Dependent name must be given as a not empty string" );
             }
 
             deps = Array.isArray( deps ) ? deps : [deps];
@@ -88,8 +88,8 @@
 
                     var dep = _ref;
 
-                    if( typeof dep !== 'string' || !dep ) {
-                        throw new TypeError( 'Dependency name must be given as a not empty string' );
+                    if( typeof dep !== "string" || !dep ) {
+                        throw new TypeError( "Dependency name must be given as a not empty string" );
                     }
 
                     this.edges.push( [item, dep] );
@@ -167,8 +167,8 @@
                     copy = undefined;
 
                 if( predecessors.indexOf( node ) > -1 ) {
-                    throw new Error( 'Cyclic dependency found. ' + node + ' is dependent of itself.\nDependency chain: '
-                                     + predecessors.join( ' -> ' ) + ' => ' + node );
+                    throw new Error( "Cyclic dependency found. " + node + " is dependent of itself.\nDependency chain: "
+                                     + predecessors.join( " -> " ) + " => " + node );
                 }
 
                 index = nodes.indexOf( node );
