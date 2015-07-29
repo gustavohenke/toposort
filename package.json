@@ -13,7 +13,7 @@
     "mocha":               "^2.2.5"
   },
   "scripts":         {
-    "test":   "grunt -b",
+    "test": "mocha -b test/build",
     "eslint": "eslint src/toposort.js test/src/spec.js"
   },
   "repository":      {
