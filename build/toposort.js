@@ -163,7 +163,8 @@
             var visit = function visit( node, i ) {
                 var predecessors = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
 
-                var index = undefined;
+                var index = undefined,
+                    copy = undefined;
 
                 if( predecessors.indexOf( node ) > -1 ) {
                     throw new Error( "Cyclic dependency found. " + node + " is dependent of itself.\nDependency chain: "
@@ -203,7 +204,9 @@
                     var edge = _ref4;
 
                     if( edge[0] === node ) {
-                        i = visit( edge[1], i, predecessors.concat( [node] ) );
+                        copy = copy || predecessors.concat( [node] );
+
+                        i = visit( edge[1], i, copy );
                     }
                 }
 
