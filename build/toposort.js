@@ -210,6 +210,7 @@
                     }
                 }
 
+                //increment this first so the next statement is one forward
                 offset++;
 
                 sorted[sorted.length - offset] = node;
