@@ -4,6 +4,8 @@
   "description":     "Topological sort of directed acyclic graphs (like dependecy lists)",
   "main":            "./index.js",
   "devDependencies": {
+    "babel-eslint": "^4.0.5",
+    "eslint":       "^0.24.1",
     "grunt":               "^0.4.5",
     "grunt-babel":         "^5.0.1",
     "grunt-banner":        "^0.4.0",
@@ -11,7 +13,8 @@
     "mocha":               "^2.2.5"
   },
   "scripts":         {
-    "test": "grunt"
+    "test":   "grunt -b",
+    "eslint": "eslint src/toposort.js test/src/spec.js"
   },
   "repository":      {
     "type": "git",
