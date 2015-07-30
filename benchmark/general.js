@@ -14,7 +14,7 @@ suite( "simple dependency chains", function() {
             .add( "5", ["2", "4"] ).sort();
     } );
 
-    bench( "0.4.0 version", function() {
+    bench( "current version", function() {
         var t = new Toposort();
 
         t.add( "3", "2" )
@@ -41,7 +41,7 @@ suite( "slightly more complex chains", function() {
             .add( "9", ["8", "6", "7"] ).sort();
     } );
 
-    bench( "0.4.0 version", function() {
+    bench( "current version", function() {
         var t = new Toposort();
 
         t.add( "3", "1" )
