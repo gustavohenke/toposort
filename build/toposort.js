@@ -175,9 +175,11 @@
 
                 index = nodes.indexOf( node );
 
-                if( index === -1 || index < offset ) {
+                if( index === -1 ) {
                     return i;
                 }
+
+                nodes.splice( index, 1 );
 
                 if( predecessors.length === 0 ) {
                     i--;
@@ -210,7 +212,6 @@
                     }
                 }
 
-                //increment this first so the next statement is one forward
                 offset++;
 
                 sorted[sorted.length - offset] = node;
@@ -218,8 +219,8 @@
                 return i;
             };
 
-            for( var i = 0; i < nodes.length - offset; i++ ) {
-                i = visit( nodes[i + offset], i );
+            for( var i = 0; i < nodes.length; i++ ) {
+                i = visit( nodes[i], i );
             }
 
             return sorted;
