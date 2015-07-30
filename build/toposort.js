@@ -112,7 +112,8 @@
             var _this = this;
 
             var nodes = [];
-            var offset = 0;
+            var offset = 0,
+                place = 0;
 
             for( var _iterator2 = this.edges, _isArray2 = Array.isArray( _iterator2 ), _i2 = 0, _iterator2 = _isArray2 ?
                                                                                                              _iterator2 :
@@ -175,11 +176,13 @@
 
                 index = nodes.indexOf( node );
 
-                if( index === -1 ) {
+                if( index === -1 || index < offset ) {
                     return i;
+                } else if( index === 0 ) {
+                    offset++;
+                } else {
+                    nodes.splice( index, 1 );
                 }
-
-                nodes.splice( index, 1 );
 
                 if( predecessors.length === 0 ) {
                     i--;
@@ -212,15 +215,13 @@
                     }
                 }
 
-                offset++;
-
-                sorted[sorted.length - offset] = node;
+                sorted[sorted.length - ++place] = node;
 
                 return i;
             };
 
-            for( var i = 0; i < nodes.length; i++ ) {
-                i = visit( nodes[i], i );
+            for( var i = 0; i < nodes.length - offset; i++ ) {
+                i = visit( nodes[i + offset], i );
             }
 
             return sorted;
