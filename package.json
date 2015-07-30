@@ -15,7 +15,7 @@
   },
   "scripts":         {
     "test":           "mocha -b test",
-    "eslint":         "eslint src/toposort.js test/spec.js",
+    "eslint": "eslint src/toposort.js test/spec.js Gruntfile.js",
     "benchmark":      "matcha benchmark/general.js",
     "benchmark-save": "matcha -R csv benchmark/general.js > benchmark/results.csv"
   },
