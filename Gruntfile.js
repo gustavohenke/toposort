@@ -2,6 +2,7 @@ module.exports = function( grunt ) {
 
     grunt.loadNpmTasks( "grunt-babel" );
     grunt.loadNpmTasks( "grunt-contrib-clean" );
+    grunt.loadNpmTasks( "grunt-contrib-uglify" );
     grunt.loadNpmTasks( "grunt-banner" );
 
     var LICENSE = "/****\n * " +
@@ -30,16 +31,16 @@ module.exports = function( grunt ) {
                 },
                 files:   [{
                     expand: true,
-                    cwd:  "./src/",
-                    src:  "./**/*.js",
-                    dest: "./build/"
+                    cwd:    "./src/",
+                    src:    "./**/*.js",
+                    dest:   "./build/"
                 }]
             }
         },
         usebanner: {
             license: {
                 options: {
-                    position: "top",
+                    position:  "top",
                     banner:    LICENSE,
                     linebreak: true
                 },
@@ -52,10 +53,17 @@ module.exports = function( grunt ) {
             build: {
                 src: ["./build"]
             }
+        },
+        uglify:    {
+            build: {
+                files: {
+                    "build/toposort.min.js": "build/toposort.js"
+                }
+            }
         }
     } );
 
-    grunt.registerTask( "build", ["clean:build", "babel:build", "usebanner:license"] );
+    grunt.registerTask( "build", ["clean:build", "babel:build", "usebanner:license", "uglify:build"] );
 
     grunt.registerTask( "default", ["build"] );
 };
