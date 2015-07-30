@@ -10,7 +10,7 @@ module.exports = function( grunt ) {
 
     grunt.initConfig( {
         babel:     {
-            options:   {
+            options: {
                 ast:          false,
                 sourceMaps:   false,
                 nonStandard:  false,
@@ -18,7 +18,7 @@ module.exports = function( grunt ) {
                 modules:      "umd",
                 experimental: true
             },
-            build:     {
+            build:   {
                 options: {
                     loose:    "all",
                     optional: [
@@ -33,28 +33,6 @@ module.exports = function( grunt ) {
                     cwd:    './src/',
                     src:    './**/*.js',
                     dest:   './build/'
-                }]
-            },
-            benchmark: {
-                loose:   "all",
-                options: {
-                    blacklist: [
-                        'es3.memberExpressionLiterals',
-                        'es3.propertyLiterals',
-                        'regenerator', //es6.generators
-                        'es6.properties.shorthand'
-                    ],
-                    optional:  [
-                        'spec.undefinedToVoid',
-                        'minification.constantFolding',
-                        'minification.propertyLiterals'
-                    ]
-                },
-                files:   [{
-                    expand: true,
-                    cwd:    './benchmark/src/',
-                    src:    './**/*.js',
-                    dest:   './benchmark/build/'
                 }]
             }
         },
@@ -71,18 +49,13 @@ module.exports = function( grunt ) {
             }
         },
         clean:     {
-            build:     {
+            build: {
                 src: ['./build']
-            },
-            benchmark: {
-                src: ['./benchmark/build']
             }
         }
     } );
 
     grunt.registerTask( 'build', ['clean:build', 'babel:build', 'usebanner:license'] );
 
-    grunt.registerTask( 'build-benchmark', ['clean:benchmark', 'babel:benchmark'] );
-
-    grunt.registerTask( 'default', ['build', 'build-benchmark'] );
+    grunt.registerTask( 'default', ['build'] );
 };
