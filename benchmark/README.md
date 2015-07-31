@@ -5,7 +5,7 @@ Since I'm obsessed with performance, here is a tiny benchmark comparing the perf
 
 | Description                  | Library         | Op/s       |  %   |
 |------------------------------|-----------------|-----------:|-----:|
-| simple dependency chains     | 0.3.1 version   | 65,897.92  | 17%  |
-|                              | current version | 378,468.10 | 100% |
-| slightly more complex chains | 0.3.1 version   | 25,827.17  | 16%  |
-|                              | current version | 165,029.58 | 100% |
+| simple dependency chains     | 0.3.1 version   | 65,185.45  | 12%  |
+|                              | current version | 535,679.89 | 100% |
+| slightly more complex chains | 0.3.1 version   | 23,642.86  | 12%  |
+|                              | current version | 198,397.79 | 100% |
