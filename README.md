@@ -12,7 +12,7 @@ There are a few ways for installing Toposort. Here are them:
 * Via NPM: `npm install toposort-class`
 * Via Bower: `bower install toposort`
 * Via Git: `git clone git://github.com/gustavohenke/toposort.git`
-* [Direct download](https://raw.github.com/gustavohenke/toposort/master/toposort.js) for use in the browser
+* [Direct download](https://raw.githubusercontent.com/gustavohenke/toposort/master/build/toposort.js) ([Minified](https://raw.githubusercontent.com/gustavohenke/toposort/master/build/toposort.min.js)) for use in the browser
 
 ## Example
 Let's say you have the following dependency graph:
@@ -67,6 +67,15 @@ __Returns:__ _{Toposort}_ The Toposort instance, for chaining.
 __Returns:__ _{Array}_ The list of dependencies topologically sorted.
 
 This method will check for cyclic dependencies, like "A is dependent of A".
+
+### .clear()
+__Returns:__ _{Toposort}_ The Toposort instance, for chaining.
+
+Clears all edges, effectively resetting the instance.
+
+### .Toposort
+
+Reference to the Toposort constructor.
 
 ## Legal
 MIT License

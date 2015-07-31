@@ -1,9 +1,12 @@
-before_install:
-# Update NPM, so installing stuff which uses the new ^ syntax in their
-  # dependencies doesn't error the build.
-  - npm install -g npm
-
-  - npm install -g grunt-cli
 language: node_js
-node_js:
-  - 0.10
+matrix:
+  include:
+    - node_js: "0.12"
+    - node_js: "0.11"
+    - node_js: "0.10"
+    - node_js: "iojs"
+    - node_js: "iojs-v1.0.4" # earlier version of iojs
+
+script: "mocha -b test"
+
+sudo: false

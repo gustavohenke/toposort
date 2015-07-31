@@ -26,23 +26,23 @@
          * @returns {Toposort}                  The Toposort instance
          */
         self.add = function( item, deps ) {
-            if ( typeof item !== "string" || !item ) {
+            if( typeof item !== "string" || !item ) {
                 throw new TypeError( "Dependent name must be given as a not empty string" );
             }
 
-            deps = Array.isArray( deps ) ? deps.slice() : [ deps ];
-            if ( deps.length ) {
-                deps.forEach(function( dep ) {
-                    if ( typeof dep !== "string" || !dep ) {
+            deps = Array.isArray( deps ) ? deps.slice() : [deps];
+            if( deps.length ) {
+                deps.forEach( function( dep ) {
+                    if( typeof dep !== "string" || !dep ) {
                         throw new TypeError(
                             "Dependency name must be given as a not empty string"
                         );
                     }
 
-                    edges.push([ item, dep ]);
-                });
+                    edges.push( [item, dep] );
+                } );
             } else {
-                edges.push([ item ]);
+                edges.push( [item] );
             }
 
             return self;
@@ -58,19 +58,19 @@
             var nodes = [];
             var sorted = [];
 
-            edges.forEach(function( edge ) {
-                edge.forEach(function( n ) {
-                    if ( nodes.indexOf( n ) === -1 ) {
+            edges.forEach( function( edge ) {
+                edge.forEach( function( n ) {
+                    if( nodes.indexOf( n ) === -1 ) {
                         nodes.push( n );
                     }
-                });
-            });
+                } );
+            } );
 
             function visit( node, predecessors, i ) {
                 var index, predsCopy;
                 predecessors = predecessors || [];
 
-                if ( predecessors.indexOf( node ) > -1 ) {
+                if( predecessors.indexOf( node ) > -1 ) {
                     throw new Error(
                         "Cyclic dependency found. '" + node + "' is dependent of itself.\n" +
                         "Dependency Chain: " + predecessors.join( " -> " ) + " => " + node
@@ -78,30 +78,30 @@
                 }
 
                 index = nodes.indexOf( node );
-                if ( index === -1 ) {
+                if( index === -1 ) {
                     return i;
                 }
 
                 nodes.splice( index, 1 );
-                if ( predecessors.length === 0 ) {
+                if( predecessors.length === 0 ) {
                     i--;
                 }
 
                 predsCopy = predecessors.slice();
                 predsCopy.push( node );
 
-                edges.filter(function( e ) {
-                    return e[ 0 ] === node;
-                }).forEach(function( e ) {
-                    i = visit( e[ 1 ], predsCopy, i );
-                });
+                edges.filter( function( e ) {
+                    return e[0] === node;
+                } ).forEach( function( e ) {
+                    i = visit( e[1], predsCopy, i );
+                } );
 
                 sorted.unshift( node );
                 return i;
             }
 
-            for ( var i = 0; i < nodes.length; i++ ) {
-                i = visit( nodes[ i ], null, i );
+            for( var i = 0; i < nodes.length; i++ ) {
+                i = visit( nodes[i], null, i );
             }
 
             return sorted;
@@ -109,19 +109,19 @@
 
     }
 
-    if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    if( typeof module === "object" && module && typeof module.exports === "object" ) {
         // Expose toposort to CommonJS loaders (aka Node)
         module.exports = exports.Toposort = Toposort;
     } else {
         // Expose toposort to AMD loaders (aka Require.js)
-        if ( typeof define === "function" && define.amd ) {
-            define(function() {
+        if( typeof define === "function" && define.amd ) {
+            define( function() {
                 return Toposort;
-            });
+            } );
         }
 
         // Expose toposort as a browser global
-        if ( typeof window === "object" ) {
+        if( typeof window === "object" ) {
             window.Toposort = Toposort;
         }
     }
