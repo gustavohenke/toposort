@@ -24,7 +24,7 @@
  ****/
 (function( global, factory ) {
     if( typeof define === "function" && define.amd ) {
-        define( ["exports", "module"], factory );
+        define( "Toposort", ["exports", "module"], factory );
     } else if( typeof exports !== "undefined" && typeof module !== "undefined" ) {
         factory( exports, module );
     } else {
@@ -32,7 +32,7 @@
             exports: {}
         };
         factory( mod.exports, mod );
-        global.toposort = mod.exports;
+        global.Toposort = mod.exports;
     }
 })( this, function( exports, module ) {
     "use strict";

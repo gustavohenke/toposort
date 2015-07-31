@@ -17,6 +17,7 @@ module.exports = function( grunt ) {
                 nonStandard:  false,
                 compact:      "false",
                 modules:      "umd",
+                moduleId:     "Toposort",
                 experimental: true
             },
             build:   {
