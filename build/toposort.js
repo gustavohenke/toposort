@@ -112,8 +112,6 @@
             var _this = this;
 
             var nodes = [];
-            var offset = 0,
-                place = 0;
 
             for( var _iterator2 = this.edges, _isArray2 = Array.isArray( _iterator2 ), _i2 = 0, _iterator2 = _isArray2 ?
                                                                                                              _iterator2 :
@@ -161,10 +159,11 @@
                 }
             }
 
+            var place = nodes.length - 1;
             var sorted = new Array( nodes.length );
 
-            var visit = function visit( node, i ) {
-                var predecessors = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
+            var visit = function visit( node, i, k ) {
+                var predecessors = arguments.length <= 3 || arguments[3] === undefined ? [] : arguments[3];
 
                 var index = undefined,
                     copy = undefined;
@@ -176,17 +175,11 @@
 
                 index = nodes.indexOf( node );
 
-                if( index === -1 || index < offset ) {
-                    return i;
-                } else if( index === 0 ) {
-                    offset++;
-                } else {
-                    nodes.splice( index, 1 );
+                if( index === -1 ) {
+                    return i + k;
                 }
 
-                if( predecessors.length === 0 ) {
-                    i--;
-                }
+                nodes[index] = false;
 
                 for( var _iterator4 = _this.edges, _isArray4 = Array.isArray( _iterator4 ), _i4 = 0, _iterator4 = _isArray4 ?
                                                                                                                   _iterator4 :
@@ -211,17 +204,25 @@
                     if( edge[0] === node ) {
                         copy = copy || predecessors.concat( [node] );
 
-                        i = visit( edge[1], i, copy );
+                        i = visit( edge[1], i, 0, copy );
                     }
                 }
 
-                sorted[sorted.length - ++place] = node;
+                sorted[place--] = node;
 
                 return i;
             };
 
-            for( var i = 0; i < nodes.length - offset; i++ ) {
-                i = visit( nodes[i + offset], i );
+            var i = 0;
+
+            while( i < nodes.length ) {
+                var node = nodes[i];
+
+                if( node !== false ) {
+                    i = visit( node, i - 1, 1 );
+                }
+
+                i++;
             }
 
             return sorted;
