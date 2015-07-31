@@ -162,8 +162,8 @@
             var place = nodes.length - 1;
             var sorted = new Array( nodes.length );
 
-            var visit = function visit( node, i, k ) {
-                var predecessors = arguments.length <= 3 || arguments[3] === undefined ? [] : arguments[3];
+            var visit = function visit( node, i ) {
+                var predecessors = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
 
                 var index = undefined,
                     copy = undefined;
@@ -176,7 +176,7 @@
                 index = nodes.indexOf( node );
 
                 if( index === -1 ) {
-                    return i + k;
+                    return i;
                 }
 
                 nodes[index] = false;
@@ -204,7 +204,7 @@
                     if( edge[0] === node ) {
                         copy = copy || predecessors.concat( [node] );
 
-                        i = visit( edge[1], i, 0, copy );
+                        i = visit( edge[1], i, copy );
                     }
                 }
 
@@ -219,7 +219,7 @@
                 var node = nodes[i];
 
                 if( node !== false ) {
-                    i = visit( node, i - 1, 1 );
+                    i = visit( node, i - 1 );
                 }
 
                 i++;
