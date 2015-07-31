@@ -57,7 +57,7 @@ export default class Toposort {
         var visit = ( node, i, index, predecessors ) => {
             let copy = false;
 
-            if( predecessors.indexOf( node ) !== -1 ) {
+            if( predecessors.length !== 0 && predecessors.indexOf( node ) !== -1 ) {
                 throw new Error( `Cyclic dependency found. ${node} is dependent of itself.\nDependency chain: ${predecessors.join( " -> " )} => ${node}` );
             }
 
