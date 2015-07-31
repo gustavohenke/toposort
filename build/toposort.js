@@ -206,16 +206,12 @@
                 return i;
             };
 
-            var i = 0;
-
-            while( i < nodes.length ) {
+            for( var i = 0; i < nodes.length; i++ ) {
                 var node = nodes[i];
 
                 if( node !== false ) {
                     i = visit( node, i - 1, i, [] );
                 }
-
-                i++;
             }
 
             return sorted;

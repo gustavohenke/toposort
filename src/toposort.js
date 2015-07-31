@@ -78,16 +78,12 @@ export default class Toposort {
             return i;
         };
 
-        let i = 0;
-
-        while( i < nodes.length ) {
+        for( let i = 0; i < nodes.length; i++ ) {
             let node = nodes[i];
 
             if( node !== false ) {
                 i = visit( node, i - 1, i, [] );
             }
-
-            i++;
         }
 
         return sorted;
