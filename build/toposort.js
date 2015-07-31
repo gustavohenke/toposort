@@ -170,40 +170,38 @@
                                      + predecessors.join( " -> " ) + " => " + node );
                 }
 
-                if( index === -1 && (index = nodes.indexOf( node )) === -1 ) {
-                    return i;
-                }
+                if( index !== -1 || (index = nodes.indexOf( node )) !== -1 ) {
+                    nodes[index] = false;
 
-                nodes[index] = false;
+                    for( var _iterator4 = _this.edges, _isArray4 = Array.isArray( _iterator4 ), _i4 = 0, _iterator4 = _isArray4 ?
+                                                                                                                      _iterator4 :
+                                                                                                                      _iterator4[Symbol.iterator](); ; ) {
+                        var _ref4;
 
-                for( var _iterator4 = _this.edges, _isArray4 = Array.isArray( _iterator4 ), _i4 = 0, _iterator4 = _isArray4 ?
-                                                                                                                  _iterator4 :
-                                                                                                                  _iterator4[Symbol.iterator](); ; ) {
-                    var _ref4;
-
-                    if( _isArray4 ) {
-                        if( _i4 >= _iterator4.length ) {
-                            break;
+                        if( _isArray4 ) {
+                            if( _i4 >= _iterator4.length ) {
+                                break;
+                            }
+                            _ref4 = _iterator4[_i4++];
+                        } else {
+                            _i4 = _iterator4.next();
+                            if( _i4.done ) {
+                                break;
+                            }
+                            _ref4 = _i4.value;
                         }
-                        _ref4 = _iterator4[_i4++];
-                    } else {
-                        _i4 = _iterator4.next();
-                        if( _i4.done ) {
-                            break;
+
+                        var edge = _ref4;
+
+                        if( edge[0] === node ) {
+                            copy = copy || predecessors.concat( [node] );
+
+                            i = visit( edge[1], i, -1, copy );
                         }
-                        _ref4 = _i4.value;
                     }
 
-                    var edge = _ref4;
-
-                    if( edge[0] === node ) {
-                        copy = copy || predecessors.concat( [node] );
-
-                        i = visit( edge[1], i, -1, copy );
-                    }
+                    sorted[--place] = node;
                 }
-
-                sorted[--place] = node;
 
                 return i;
             };

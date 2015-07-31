@@ -61,21 +61,19 @@ export default class Toposort {
                 throw new Error( `Cyclic dependency found. ${node} is dependent of itself.\nDependency chain: ${predecessors.join( " -> " )} => ${node}` );
             }
 
-            if( index === -1 && (index = nodes.indexOf( node )) === -1 ) {
-                return i;
-            }
+            if( index !== -1 || (index = nodes.indexOf( node )) !== -1 ) {
+                nodes[index] = false;
 
-            nodes[index] = false;
+                for( let edge of this.edges ) {
+                    if( edge[0] === node ) {
+                        copy = copy || predecessors.concat( [node] );
 
-            for( let edge of this.edges ) {
-                if( edge[0] === node ) {
-                    copy = copy || predecessors.concat( [node] );
-
-                    i = visit( edge[1], i, -1, copy );
+                        i = visit( edge[1], i, -1, copy );
+                    }
                 }
-            }
 
-            sorted[--place] = node;
+                sorted[--place] = node;
+            }
 
             return i;
         };
