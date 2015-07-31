@@ -159,23 +159,18 @@
                 }
             }
 
-            var place = nodes.length - 1;
+            var place = nodes.length;
             var sorted = new Array( nodes.length );
 
-            var visit = function visit( node, i ) {
-                var predecessors = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
+            var visit = function visit( node, i, index, predecessors ) {
+                var copy = false;
 
-                var index = undefined,
-                    copy = undefined;
-
-                if( predecessors.indexOf( node ) > -1 ) {
+                if( predecessors.indexOf( node ) !== -1 ) {
                     throw new Error( "Cyclic dependency found. " + node + " is dependent of itself.\nDependency chain: "
                                      + predecessors.join( " -> " ) + " => " + node );
                 }
 
-                index = nodes.indexOf( node );
-
-                if( index === -1 ) {
+                if( index === -1 && (index = nodes.indexOf( node )) === -1 ) {
                     return i;
                 }
 
@@ -204,11 +199,11 @@
                     if( edge[0] === node ) {
                         copy = copy || predecessors.concat( [node] );
 
-                        i = visit( edge[1], i, copy );
+                        i = visit( edge[1], i, -1, copy );
                     }
                 }
 
-                sorted[place--] = node;
+                sorted[--place] = node;
 
                 return i;
             };
@@ -219,7 +214,7 @@
                 var node = nodes[i];
 
                 if( node !== false ) {
-                    i = visit( node, i - 1 );
+                    i = visit( node, i - 1, i, [] );
                 }
 
                 i++;

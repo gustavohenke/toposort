@@ -51,19 +51,17 @@ export default class Toposort {
             }
         }
 
-        let place = nodes.length - 1;
+        let place = nodes.length;
         let sorted = new Array( nodes.length );
 
-        var visit = ( node, i, predecessors = [] ) => {
-            let index, copy;
+        var visit = ( node, i, index, predecessors ) => {
+            let copy = false;
 
-            if( predecessors.indexOf( node ) > -1 ) {
+            if( predecessors.indexOf( node ) !== -1 ) {
                 throw new Error( `Cyclic dependency found. ${node} is dependent of itself.\nDependency chain: ${predecessors.join( " -> " )} => ${node}` );
             }
 
-            index = nodes.indexOf( node );
-
-            if( index === -1 ) {
+            if( index === -1 && (index = nodes.indexOf( node )) === -1 ) {
                 return i;
             }
 
@@ -73,11 +71,11 @@ export default class Toposort {
                 if( edge[0] === node ) {
                     copy = copy || predecessors.concat( [node] );
 
-                    i = visit( edge[1], i, copy );
+                    i = visit( edge[1], i, -1, copy );
                 }
             }
 
-            sorted[place--] = node;
+            sorted[--place] = node;
 
             return i;
         };
@@ -88,7 +86,7 @@ export default class Toposort {
             let node = nodes[i];
 
             if( node !== false ) {
-                i = visit( node, i - 1 );
+                i = visit( node, i - 1, i, [] );
             }
 
             i++;
