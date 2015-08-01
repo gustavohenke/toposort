@@ -160,17 +160,20 @@
             }
 
             var place = nodes.length;
+
             var sorted = new Array( nodes.length );
 
-            var visit = function visit( node, i, index, predecessors ) {
-                var copy = false;
-
+            var visit = function visit( node, predecessors ) {
                 if( predecessors.length !== 0 && predecessors.indexOf( node ) !== -1 ) {
                     throw new Error( "Cyclic dependency found. " + node + " is dependent of itself.\nDependency chain: "
                                      + predecessors.join( " -> " ) + " => " + node );
                 }
 
-                if( index !== -1 || (index = nodes.indexOf( node )) !== -1 ) {
+                var index = nodes.indexOf( node );
+
+                if( index !== -1 ) {
+                    var copy = false;
+
                     nodes[index] = false;
 
                     for( var _iterator4 = _this.edges, _isArray4 = Array.isArray( _iterator4 ), _i4 = 0, _iterator4 = _isArray4 ?
@@ -196,21 +199,46 @@
                         if( edge[0] === node ) {
                             copy = copy || predecessors.concat( [node] );
 
-                            i = visit( edge[1], i, -1, copy );
+                            visit( edge[1], copy );
                         }
                     }
 
                     sorted[--place] = node;
                 }
-
-                return i;
             };
 
             for( var i = 0; i < nodes.length; i++ ) {
                 var node = nodes[i];
 
                 if( node !== false ) {
-                    i = visit( node, i - 1, i, [] );
+                    nodes[i] = false;
+
+                    for( var _iterator5 = this.edges, _isArray5 = Array.isArray( _iterator5 ), _i5 = 0, _iterator5 = _isArray5 ?
+                                                                                                                     _iterator5 :
+                                                                                                                     _iterator5[Symbol.iterator](); ; ) {
+                        var _ref5;
+
+                        if( _isArray5 ) {
+                            if( _i5 >= _iterator5.length ) {
+                                break;
+                            }
+                            _ref5 = _iterator5[_i5++];
+                        } else {
+                            _i5 = _iterator5.next();
+                            if( _i5.done ) {
+                                break;
+                            }
+                            _ref5 = _i5.value;
+                        }
+
+                        var edge = _ref5;
+
+                        if( edge[0] === node ) {
+                            visit( edge[1], [node] );
+                        }
+                    }
+
+                    sorted[--place] = node;
                 }
             }
 

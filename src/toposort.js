@@ -52,37 +52,46 @@ export default class Toposort {
         }
 
         let place = nodes.length;
+
         let sorted = new Array( nodes.length );
 
-        var visit = ( node, i, index, predecessors ) => {
-            let copy = false;
-
+        var visit = ( node, predecessors ) => {
             if( predecessors.length !== 0 && predecessors.indexOf( node ) !== -1 ) {
                 throw new Error( `Cyclic dependency found. ${node} is dependent of itself.\nDependency chain: ${predecessors.join( " -> " )} => ${node}` );
             }
 
-            if( index !== -1 || (index = nodes.indexOf( node )) !== -1 ) {
+            let index = nodes.indexOf( node );
+
+            if( index !== -1 ) {
+                let copy = false;
+
                 nodes[index] = false;
 
                 for( let edge of this.edges ) {
                     if( edge[0] === node ) {
                         copy = copy || predecessors.concat( [node] );
 
-                        i = visit( edge[1], i, -1, copy );
+                        visit( edge[1], copy );
                     }
                 }
 
                 sorted[--place] = node;
             }
-
-            return i;
         };
 
         for( let i = 0; i < nodes.length; i++ ) {
             let node = nodes[i];
 
             if( node !== false ) {
-                i = visit( node, i - 1, i, [] );
+                nodes[i] = false;
+
+                for( let edge of this.edges ) {
+                    if( edge[0] === node ) {
+                        visit( edge[1], [node] );
+                    }
+                }
+
+                sorted[--place] = node;
             }
         }
 
