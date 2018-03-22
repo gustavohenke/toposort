@@ -1,6 +1,6 @@
 # Toposort
-[![Build Status](http://img.shields.io/travis/gustavohenke/toposort.svg?branch=master&style=flat)](https://travis-ci.org/gustavohenke/toposort)
-[![Dependency Status](http://img.shields.io/gemnasium/gustavohenke/toposort.png?style=flat)](https://gemnasium.com/gustavohenke/toposort)
+[![Build Status](http://img.shields.io/travis/gustavohenke/toposort.svg?branch=master)](https://travis-ci.org/gustavohenke/toposort)
+[![Dependency Status](https://img.shields.io/david/dev/gustavohenke/toposort.svg)](https://david-dm.org/gustavohenke/toposort?type=dev)
 
 __Sorting directed acyclic graphs, for Node.js, io.js and the browser__
 _This was originally done by Marcel Klehr. [Why not checkout his original repo?](https://github.com/marcelklehr/toposort)_
