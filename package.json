@@ -1,30 +1,30 @@
 {
-  "name":            "toposort-class",
-  "version":         "1.0.1",
-  "description":     "Topological sort of directed acyclic graphs (like dependecy lists)",
-  "main":            "./index.js",
+  "name": "toposort-class",
+  "version": "1.0.1",
+  "description": "Topological sort of directed acyclic graphs (like dependecy lists)",
+  "main": "./index.js",
   "devDependencies": {
-    "babel-eslint":         "^4.0.5",
-    "eslint":               "^1.0.0",
-    "grunt":                "^0.4.5",
-    "grunt-babel":          "^5.0.1",
-    "grunt-banner":         "^0.4.0",
-    "grunt-contrib-clean":  "^0.6.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.3.0",
+    "grunt": "^0.4.5",
+    "grunt-babel": "^5.0.1",
+    "grunt-banner": "^0.4.0",
+    "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-uglify": "^0.9.1",
-    "matcha":               "^0.6.0",
-    "mocha":                "^2.2.5"
+    "matcha": "^0.6.0",
+    "mocha": "^2.2.5"
   },
-  "scripts":         {
-    "test":           "mocha -b test",
-    "eslint":         "eslint src/toposort.js test/spec.js Gruntfile.js",
-    "benchmark":      "matcha benchmark/general.js",
+  "scripts": {
+    "test": "mocha -b test",
+    "eslint": "eslint src/toposort.js test/spec.js Gruntfile.js",
+    "benchmark": "matcha benchmark/general.js",
     "benchmark-save": "matcha -R csv benchmark/general.js > benchmark/results.csv"
   },
-  "repository":      {
+  "repository": {
     "type": "git",
-    "url":  "https://github.com/gustavohenke/toposort.git"
+    "url": "https://github.com/gustavohenke/toposort.git"
   },
-  "keywords":        [
+  "keywords": [
     "topological",
     "sort",
     "sorting",
@@ -36,11 +36,11 @@
     "acyclic",
     "browser"
   ],
-  "author":          [
+  "author": [
     "Marcel Klehr <mklehr@gmx.net>",
     "Gustavo Henke <gustavo@injoin.com.br>",
     "Aaron Trent <novacrazy@gmail.com>"
   ],
-  "license":         "MIT",
-  "readmeFilename":  "README.md"
+  "license": "MIT",
+  "readmeFilename": "README.md"
 }
