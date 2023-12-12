@@ -89,7 +89,7 @@
                     var dep = _ref;
 
                     if( typeof dep !== "string" || !dep ) {
-                        throw new TypeError( "Dependency name must be given as a not empty string" );
+                        throw new TypeError( "The dependency name must be provided as a non-empty string" );
                     }
 
                     this.edges.push( [item, dep] );
@@ -102,7 +102,7 @@
         };
 
         /**
-         * Runs the toposorting and return an ordered array of strings
+         * Runs the toposorting and returns an ordered array of strings
          *
          * @since   0.1.0
          * @returns {String[]}  The list of items topologically sorted.
