@@ -1,5 +1,5 @@
 # Toposort
-[![Build Status](https://img.shields.io/travis/gustavohenke/toposort/master.svg)](https://travis-ci.org/gustavohenke/toposort)
+[![CI](https://github.com/gustavohenke/toposort/actions/workflows/ci.yml/badge.svg)](https://github.com/gustavohenke/toposort/actions/workflows/ci.yml)
 
 __Sorting directed acyclic graphs, for Node.js, io.js and the browser__
 _This was originally done by Marcel Klehr. [Why not checkout his original repo?](https://github.com/marcelklehr/toposort)_
